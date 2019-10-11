@@ -39,11 +39,9 @@ Function install($VERSION=0,$isPre=0){
   $unzipDesc="example"
 
   # _exportPath "/path"
-  # $env:path=[environment]::GetEnvironmentvariable("Path","user") `
-  #           + ';' + [environment]::GetEnvironmentvariable("Path","machine")
 
   if($(_command docker)){
-    $CURRENT_VERSION=$(docker buildx version).split(' ')[1].trim('v')
+    $CURRENT_VERSION=$(docker buildx version).split(' ')[1].split('-')[0].trim('v')
 
     if ($CURRENT_VERSION -eq $VERSION){
         echo "==> $name $VERSION already install"
@@ -72,8 +70,6 @@ Function install($VERSION=0,$isPre=0){
 
   # [environment]::SetEnvironmentvariable("", "", "User")
   # _exportPath "/path"
-  # $env:path=[environment]::GetEnvironmentvariable("Path","user") `
-  #           + ';' + [environment]::GetEnvironmentvariable("Path","machine")
 
   install_after
 
