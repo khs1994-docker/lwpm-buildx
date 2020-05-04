@@ -1,23 +1,31 @@
 {
   "name": "buildx",
   "description": "Docker CLI plugin for extended build capabilities with BuildKit",
-  "version": "0.3.1",
-  "preVersion": "0.3.1",
+  "version": "0.4.1",
+  "pre-version": "0.4.1",
   "homepage": "https://github.com/docker/buildx",
   "bug": "https://github.com/docker/buildx/issues",
   "github": "docker/buildx",
   "releases": "https://github.com/docker/buildx/releases",
   "url": "https://github.com/docker/buildx/releases/download/v${VERSION}/buildx-v${VERSION}.windows-amd64.exe",
-  "preUrl": "",
+  "url-mirror": "",
+  "pre-url": "",
+  "pre-url-mirror": "",
+  "command": "docker",
   "scripts": {
-    "preinstall": "",
-    "install": "",
+    "preinstall": "mkdir -Force $HOME/.docker/cli-plugins | out-null",
+    "install": [
+      "Copy-item -r -force buildx-v${VERSION}.windows-amd64.exe $HOME/.docker/cli-plugins/docker-buildx.exe"
+    ],
     "postinstall": "",
     "preuninstall": "",
-    "uninstall": "",
+    "uninstall": "_cleanup $HOME/.docker/cli-plugins/docker-buildx",
     "postuninstall": "",
+    "pruneuninstall": "",
     "pretest": "",
     "test": "docker buildx version",
-    "posttest":""
-  }
+    "posttest": "",
+    "version": "(docker buildx version).split()[1].split('-')[0].trim('v')"
+  },
+  "path": []
 }
